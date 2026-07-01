@@ -1,0 +1,6 @@
+ ON
+[SYS] Send trigger: Moved 20m | dist: 20.5m | elapsed: 23s
+[LoRa] Sending payload (10 bytes)... retry (err -1114)... FAILED! Code: -1114 (dwell time exceeded — DR terlalu rendah!)
+[SYS] Send FAILED.
+[DISP] Auto-off (idle timeout)
+[BTN] Display ON

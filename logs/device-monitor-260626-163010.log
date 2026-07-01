@@ -1,0 +1,19 @@
+
+========================================
+  Hauler GPS Tracker — Starting
+========================================
+[  2126][E][esp32-hal-spi.c:215] spiAttachMISO(): HSPI Does not have default pins on ESP32S3!
+[GPS] Initialized.
+[LoRa] Initializing SX1262... OK
+[LoRa] Loading nonces from NVS... OK, re-joining with valid nonce counter...
+[LoRa] OTAA Joining TTN... JOINED!
+[LoRa] Datarate set to DR5
+[SYS] TTN joined!
+[GPS] Waiting fix... 0s
+[GPS] Waiting fix... 0s
+[GPS] Waiting fix... 1s
+[GPS] Waiting fix... 2s
+[GPS] Waiting fix... 2s
+[GPS] Waiting fix... 3s
+[GPS] Waiting fix... 4s
+[GPS] Waiting fix... 4s

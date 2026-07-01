@@ -1,0 +1,8 @@
+[GPS] Waiting fix... 1s
+[GPS] Fix OK! Lat: -3.779277, Lon: 103.679417, Sats: 6, HDOP: 1.5
+[SYS] Ready. Starting location tracking.
+[SYS] Send trigger: First send | dist: 0.0m | elapsed: 15s
+[LoRa] Sending payload (11 bytes) unit=1... OK! RSSI: -36.0 dBm, SNR: 9.0 dB
+[SYS] Sent OK! Sats: 6, HDOP: 1.5
+[SYS] Deep sleep for 270s (idle heartbeat).
+[GPS] Power down.

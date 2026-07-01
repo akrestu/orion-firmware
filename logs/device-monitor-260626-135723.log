@@ -1,0 +1,435 @@
+[SYS] Send trigger: Moved 11525254m | dist: 11525254.0m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525258m | dist: 11525257.6m | elapsed: 1s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525259m | dist: 11525258.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525260m | dist: 11525259.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525261m | dist: 11525261.2m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525260m | dist: 11525259.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525255m | dist: 11525255.4m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525253m | dist: 11525252.8m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525251m | dist: 11525251.1m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525250m | dist: 11525250.4m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525249m | dist: 11525249.3m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moved 11525250m | dist: 11525249.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525248m | dist: 11525248.4m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525247m | dist: 11525246.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525246m | dist: 11525246.0m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525245m | dist: 11525244.7m | elapsed: 1s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525244m | dist: 11525243.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525242m | dist: 11525241.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525239m | dist: 11525239.0m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525238m | dist: 11525238.4m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525238m | dist: 11525238.1m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525238m | dist: 11525238.0m | elapsed: 1s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525238m | dist: 11525238.2m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moved 11525238m | dist: 11525238.3m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525237m | dist: 11525237.0m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525237m | dist: 11525236.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525235m | dist: 11525235.3m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525235m | dist: 11525234.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525235m | dist: 11525234.8m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525234m | dist: 11525233.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525231m | dist: 11525230.8m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525227m | dist: 11525226.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525224m | dist: 11525223.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525225m | dist: 11525224.9m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525228m | dist: 11525227.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moved 11525229m | dist: 11525229.2m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525230m | dist: 11525229.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525231m | dist: 11525230.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525231.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525233m | dist: 11525233.4m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525234m | dist: 11525233.9m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525234m | dist: 11525233.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525231.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525230m | dist: 11525229.9m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525230m | dist: 11525229.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525229m | dist: 11525229.0m | elapsed: 1s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525228m | dist: 11525227.9m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moved 11525227m | dist: 11525226.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525226m | dist: 11525225.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525224m | dist: 11525224.3m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525223m | dist: 11525222.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525221m | dist: 11525221.1m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525219m | dist: 11525218.9m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525219m | dist: 11525218.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525219m | dist: 11525218.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525220m | dist: 11525220.2m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525222m | dist: 11525221.8m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525222m | dist: 11525222.2m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525221m | dist: 11525221.4m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moved 11525221m | dist: 11525221.2m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525221m | dist: 11525221.3m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525223m | dist: 11525222.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525224m | dist: 11525223.9m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525224m | dist: 11525223.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525223m | dist: 11525223.1m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525222m | dist: 11525222.3m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525221m | dist: 11525220.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525221m | dist: 11525220.8m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525222m | dist: 11525221.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525222m | dist: 11525221.9m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525221m | dist: 11525221.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525222m | dist: 11525221.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moved 11525222m | dist: 11525222.1m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525224m | dist: 11525224.3m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525226m | dist: 11525226.3m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525228m | dist: 11525227.8m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525228m | dist: 11525228.4m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525229m | dist: 11525228.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525228m | dist: 11525227.8m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525228m | dist: 11525227.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525227m | dist: 11525227.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525227m | dist: 11525227.1m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525227m | dist: 11525227.4m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525227m | dist: 11525226.9m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525226m | dist: 11525226.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moved 11525226m | dist: 11525226.4m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525226m | dist: 11525226.0m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525225m | dist: 11525225.0m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525223m | dist: 11525223.4m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525223m | dist: 11525223.1m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525224m | dist: 11525223.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525224m | dist: 11525224.2m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525224m | dist: 11525223.9m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525224m | dist: 11525224.3m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525225m | dist: 11525224.9m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525225m | dist: 11525224.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525225m | dist: 11525224.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moved 11525225m | dist: 11525224.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525225m | dist: 11525225.0m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525227m | dist: 11525226.9m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525228m | dist: 11525228.3m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525230m | dist: 11525229.6m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525232.3m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525233m | dist: 11525233.0m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525232.1m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525232.3m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525234m | dist: 11525234.4m | elapsed: 2s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525233m | dist: 11525233.0m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525233m | dist: 11525233.0m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moved 11525233m | dist: 11525233.2m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525232.4m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525233m | dist: 11525233.1m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525233m | dist: 11525233.1m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525233m | dist: 11525233.2m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525234m | dist: 11525233.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525234m | dist: 11525233.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525233m | dist: 11525233.3m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525232.2m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525231.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525232.0m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525233m | dist: 11525232.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525233m | dist: 11525232.8m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moved 11525232m | dist: 11525232.0m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525231m | dist: 11525231.4m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525231m | dist: 11525231.0m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525231.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525231.8m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525232.1m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525233m | dist: 11525232.8m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525232.2m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525232m | dist: 11525231.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525229m | dist: 11525228.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525227m | dist: 11525227.1m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525227m | dist: 11525227.5m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moved 11525221m | dist: 11525221.2m | elapsed: 1s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525221m | dist: 11525221.4m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525222m | dist: 11525222.1m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... FAILED! Code: -2
+[SYS] Send FAILED.
+[SYS] Send trigger: Moved 11525225m | dist: 11525224.7m | elapsed: 0s
+[LoRa] Sending payload (10 bytes)... retry (err -2)... 

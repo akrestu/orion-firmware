@@ -1,0 +1,3 @@
+[LoRa] Loading nonces from NVS... OK
+[LoRa] OTAA Joining... FAILED! Code: -1116
+[SYS] Join FAILED! Retry 30s.

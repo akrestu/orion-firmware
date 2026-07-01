@@ -1,0 +1,20 @@
+[DISP] Auto-off (idle timeout)
+[BTN] Display ON
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moving KA | dist: 5.2m | elapsed: 34s
+[LoRa] Sending payload (10 bytes)... OK! RSSI: -19.0 dBm, SNR: 9.2 dB
+[SYS] Sent OK! Sats: 16, HDOP: 1.0
+[DISP] Auto-off (idle timeout)
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moving KA | dist: 5.2m | elapsed: 43s
+[LoRa] Sending payload (10 bytes)... OK! RSSI: -18.0 dBm, SNR: 9.0 dB
+[SYS] Sent OK! Sats: 11, HDOP: 2.7
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[BAT] raw=0mV  scaled=0mV  pct=0%
+[BAT] 0%
+[SYS] Send trigger: Moving KA | dist: 5.4m | elapsed: 37s
+[LoRa] Sending payload (10 bytes)... OK! RSSI: -18.0 dBm, SNR: 9.5 dB
+[SYS] Sent OK! Sats: 13, HDOP: 1.9
