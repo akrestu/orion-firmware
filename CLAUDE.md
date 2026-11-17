@@ -181,6 +181,11 @@ LCD BL:21   LED:18   BTN PRG:0  BTN PWR:47
 - DevEUI, JoinEUI, AppKey semuanya MSB (RadioLib 6.6.0) — salin langsung dari portal
 - Error `-1116` (NO_DOWNLINK) saat join = join accept tidak diterima: cek gateway online,
   JoinRequest muncul di LoRaWAN frames, antena LoRa terpasang, jarak ke gateway
+- JoinAccept muncul di ChirpStack tapi unit terus join ulang: region device profile/gateway
+  harus AS923 (AS923-1), bukan AS923-2
+- Error `-1111` (JOIN_NONCE_INVALID) = unit menyimpan JoinNonce dari network lama (TTN) yang
+  lebih tinggi. Hapus NVS: `esptool.py --port COMx erase_region 0x9000 0x5000`, lalu reset
+- Gateway SenseCAP M2 setelah reboot butuh ±9 menit sampai log `concentrator started`
 
 ### Fitur lanjutan yang bisa dikembangkan
 - Geofencing: alert jika hauler keluar area tambang
