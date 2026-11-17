@@ -24,6 +24,10 @@ import csv
 import shutil
 import subprocess
 import argparse
+import re
+
+HEX_RE  = re.compile(r"[0-9A-F]+")
+NAME_RE = re.compile(r"[A-Za-z0-9_\-]{1,16}")
 
 # Path relatif dari root project
 SCRIPT_DIR   = os.path.dirname(os.path.abspath(__file__))
@@ -76,11 +80,22 @@ def load_units():
             units[uid] = {
                 "unit_id":  uid,
                 "unit_name": row["unit_name"].strip(),
-                "joineui":  row["joineui"].strip().upper().zfill(16),
-                "deveui":   row["deveui"].strip().upper().zfill(16),
-                "appkey":   row["appkey"].strip().upper().zfill(32),
+                # Tanpa zfill: key yang kepotong harus ketahuan, bukan dipad nol diam-diam
+                "joineui":  row["joineui"].strip().upper(),
+                "deveui":   row["deveui"].strip().upper(),
+                "appkey":   row["appkey"].strip().upper(),
             }
     return units
+
+
+def _check_hex(name, value, length, secret=False):
+    # AppKey rahasia — jangan pernah dicetak ke console/log
+    shown = "" if secret else f" ('{value}')"
+    if len(value) != length:
+        return f"{name} harus {length} hex chars, got {len(value)}{shown}"
+    if not HEX_RE.fullmatch(value):
+        return f"{name} mengandung karakter non-hex{shown}"
+    return None
 
 
 def format_appkey_bytes(appkey_hex):
@@ -95,8 +110,18 @@ def format_appkey_bytes(appkey_hex):
 
 
 def validate_unit(unit):
-    """Cek apakah DEVEUI dan APPKEY sudah diisi (bukan semua nol)."""
+    """Validasi format & isi data unit sebelum generate config."""
     errors = []
+    if not 0 <= unit["unit_id"] <= 254:
+        errors.append(f"unit_id {unit['unit_id']} di luar rentang 0-254 (255 = unassigned)")
+    if not NAME_RE.fullmatch(unit["unit_name"]):
+        errors.append(f"unit_name '{unit['unit_name']}' tidak valid (huruf/angka/_/-, maks 16)")
+    for name, length in (("joineui", 16), ("deveui", 16), ("appkey", 32)):
+        err = _check_hex(name.upper(), unit[name], length, secret=(name == "appkey"))
+        if err:
+            errors.append(err)
+    if errors:
+        return errors
     if unit["deveui"] == "0" * 16:
         errors.append("DEVEUI masih 0 — isi dari portal ChirpStack/TTN")
     if unit["appkey"] == "0" * 32:
@@ -150,7 +175,17 @@ def flash_unit(unit, build_only=False):
         return False
 
     generate_unit_config(unit)
+    try:
+        return _build_and_flash(unit, build_only)
+    finally:
+        # Hapus agar key unit ini tidak ikut ter-flash ke device lain lewat
+        # 'pio run -t upload' manual berikutnya (risiko DevEUI duplikat).
+        if os.path.exists(UNIT_CONFIG):
+            os.remove(UNIT_CONFIG)
+            print(f"[CLEAN] {UNIT_CONFIG} dihapus.")
 
+
+def _build_and_flash(unit, build_only):
     print("\n[BUILD] Compiling firmware...")
     if not run_pio(["run", "-e", "release"]):
         print("[FAIL] Build gagal!")
@@ -181,7 +216,7 @@ def main():
 
     units = load_units()
 
-    if args.list or (not args.unit_id and not args.all):
+    if args.list or (args.unit_id is None and not args.all):
         list_units(units)
         if not args.list:
             parser.print_help()

@@ -60,14 +60,9 @@ public:
         return _gps.location.isValid() &&
                _gps.location.age() < 2000 &&
                _gps.satellites.isValid() &&
-               _gps.satellites.value() >= GPS_MIN_SATELLITES;
-    }
-
-    // Matikan GPS sebelum deep sleep — hemat ~20mA
-    void powerDown() {
-        _serial.end();
-        digitalWrite(PIN_GPS_PWR, LOW);
-        if (DEBUG_ENABLED) DEBUG_SERIAL.println("[GPS] Power down.");
+               _gps.satellites.value() >= GPS_MIN_SATELLITES &&
+               _gps.hdop.isValid() &&
+               _gps.hdop.hdop() <= GPS_MAX_HDOP;
     }
 
     // Ambil data GPS terkini (panggil hasFix() dulu)

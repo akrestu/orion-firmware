@@ -154,13 +154,22 @@ public:
 
     // No-fix waiting screen
     void showNoFix(uint32_t waitedSec, uint8_t satsInView = 0,
-                   TxStatus lastTx = TX_NONE, const char* lastTxMsg = "") {
+                   TxStatus lastTx = TX_NONE, const char* lastTxMsg = "",
+                   float hdop = 99.0f) {
         _drawHeader(CLR_WARN);
-        _drawRow(IDX_LAT, ROW_LAT_Y, "Cari satelit...", CLR_WARN, ICON_GPS);
 
         char buf[24];
+        // Satelit cukup tapi HDOP buruk → masalahnya akurasi, bukan jumlah satelit
+        bool poorAccuracy = satsInView >= GPS_MIN_SATELLITES && hdop > GPS_MAX_HDOP && hdop < 99.0f;
+        if (poorAccuracy) {
+            snprintf(buf, sizeof(buf), "Akurasi rendah H:%.1f", hdop);
+            _drawRow(IDX_LAT, ROW_LAT_Y, buf, CLR_ORANGE, ICON_GPS);
+        } else {
+            _drawRow(IDX_LAT, ROW_LAT_Y, "Cari satelit...", CLR_WARN, ICON_GPS);
+        }
+
         if (satsInView > 0) {
-            snprintf(buf, sizeof(buf), "Terlihat: %d sat", satsInView);
+            snprintf(buf, sizeof(buf), "Terlihat: %u sat", (unsigned)satsInView);
             _drawRow(IDX_LON, ROW_LON_Y, buf, CLR_LABEL, ICON_GPS);
         } else {
             _drawRow(IDX_LON, ROW_LON_Y, "Terlihat: -", CLR_LABEL, ICON_GPS);
@@ -170,7 +179,7 @@ public:
             snprintf(buf, sizeof(buf), "Tunggu: %um %us",
                      (unsigned)(waitedSec / 60), (unsigned)(waitedSec % 60));
         } else {
-            snprintf(buf, sizeof(buf), "Tunggu: %us", waitedSec);
+            snprintf(buf, sizeof(buf), "Tunggu: %us", (unsigned)waitedSec);
         }
         _drawRow(IDX_SPEED, ROW_SPEED_Y, buf, CLR_LABEL, ICON_CLOCK);
 
@@ -219,9 +228,9 @@ public:
         // ── Speed + Heading + Sats + HDOP — row color driven by HDOP quality
         // Cap HDOP display at 99 to prevent overflow on 160px wide screen
         float dispHdop = gps.hdop > 99.0f ? 99.0f : gps.hdop;
-        snprintf(buf, sizeof(buf), "%3.0fk/h %-2s S:%d H:%.0f",
+        snprintf(buf, sizeof(buf), "%3.0fk/h %-2s S:%u H:%.0f",
                  gps.speed_kmh, _cardinalDir(gps.course_deg, gps.speed_kmh),
-                 gps.satellites, dispHdop);
+                 (unsigned)gps.satellites, dispHdop);
         _drawRow(IDX_SPEED, ROW_SPEED_Y, buf, _hdopColor(gps.speed_kmh, gps.hdop),
                  moving ? ICON_ARROW : ICON_PAUSE);
 
@@ -236,12 +245,12 @@ public:
         if (txStatus == TX_SENDING) {
             _drawRow(IDX_NEXT, ROW_NEXT_Y, "Transmitting...", CLR_WARN, ICON_ANTENNA);
         } else if (screenWarning) {
-            snprintf(buf, sizeof(buf), "Layar mati %lus...", displayOffInSec);
+            snprintf(buf, sizeof(buf), "Layar mati %us...", (unsigned)displayOffInSec);
             _drawRow(IDX_NEXT, ROW_NEXT_Y, buf,
                      blinkOn ? CLR_ORANGE : CLR_LABEL, ICON_CLOCK);
         } else {
-            snprintf(buf, sizeof(buf), "TX in:%lus [%s]",
-                     nextSendSec, moving ? "MOV" : "IDL");
+            snprintf(buf, sizeof(buf), "TX in:%us [%s]",
+                     (unsigned)nextSendSec, moving ? "MOV" : "IDL");
             uint16_t cntClr = approaching
                 ? (blinkOn ? CLR_ERR : CLR_COUNTDOWN)
                 : CLR_COUNTDOWN;

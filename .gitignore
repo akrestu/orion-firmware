@@ -11,6 +11,9 @@ include/unit_config.h
 # Berisi DevEUI/AppKey asli seluruh armada — jangan commit
 units.csv
 
+# Log serial monitor (log2file) — berisi koordinat GPS asli site
+logs/
+
 # Python cache
 __pycache__/
 *.pyc

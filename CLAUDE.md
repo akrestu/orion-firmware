@@ -29,51 +29,53 @@ Owner: Restu (fangthewhite@gmail.com)
 ```
 Heltec Wireless Tracker
   → baca GPS (lat, lon, speed, hdop)
-  → encode ke payload 10 bytes
+  → encode ke payload 13 bytes (FPort 1) / status 3 bytes (FPort 2)
   → kirim via LoRa AS923 (RadioLib, OTAA)
-    → SenseCAP M2 Gateway
-      → forward ke TTN (au1.cloud.thethings.network)
-        → Payload decoder (JavaScript di TTN)
-          → Webhook ke Datacake
-            → Dashboard peta real-time
+    → SenseCAP M2 Gateway (Packet Forwarder, port 1700)
+      → ChirpStack (network server, codec JS di bawah)
+        → Dashboard peta real-time
 ```
 
 ---
 
 ## Status Konfigurasi Saat Ini
 
-### TTN (The Things Network)
-- **Cluster**: `au1.cloud.thethings.network` (Asia Pacific, AS923)
-- **Gateway ID**: `genesis25`
-- **Gateway Name**: Sensecap
-- **Gateway EUI**: `2CF7F11375000072`
-- **Frequency Plan**: Asia 923-925 MHz (AS923)
-- **Fix yang perlu dilakukan**: Ubah Server Address di SenseCAP LuCI dari `eu1` ke `au1`
+### Gateway
+- **SenseCAP M2**, EUI `2CF7F11375000072`
+- LuCI: **LoRa → LoRaWAN Network Settings** → Packet Forwarder, port 1700, Server Address = server ChirpStack
+- Produksi 40-60 unit WAJIB ChirpStack (TTN fair use = 30 uplink/hari)
+- **Belum diputuskan:** frequency plan AS923-1 (923-925 MHz, dipakai firmware) vs AS923-2
+  (920-923 MHz, plan Indonesia di LoRaWAN Regional Parameters), dan TX power 22 dBm vs
+  batas EIRP. Firmware, ChirpStack, dan gateway harus diubah bersamaan.
 
-### SenseCAP M2 LuCI
-- Menu: **LoRa → LoRaWAN Network Settings**
-- Mode: Packet Forwarder
-- Port: 1700 (sudah benar)
-- Server Address: harus `au1.cloud.thethings.network`
-
-### End Device di TTN (Heltec)
-- **Belum dibuat** — perlu register end device di TTN Application
-- Setelah register, isi ke `include/config.h`: DevEUI, JoinEUI, AppKey
+### End Device (ChirpStack)
+- Unit terdaftar di `units.csv` (tidak di-commit). Flash per unit: `python scripts/flash_unit.py <unit_id>`
+  → generate `include/unit_config.h`, build release, upload, lalu hapus `unit_config.h`
+- Di Windows jalankan dengan `PYTHONIOENCODING=utf-8` jika output di-redirect ke file
+  (PlatformIO crash `UnicodeEncodeError` di console cp1252)
 
 ---
 
 ## Struktur Project
 
 ```
-hauler-gps-tracker/
+orion-beacon/
 ├── CLAUDE.md              ← file ini (project memory)
-├── platformio.ini         ← konfigurasi PlatformIO (board, library)
+├── platformio.ini         ← env dev (debug serial) & release; RadioLib di-pin 6.6.0
+├── units.csv              ← key OTAA seluruh armada (gitignored)
 ├── include/
-│   ├── config.h           ← SEMUA setting: TTN keys, pin, interval kirim
-│   ├── gps.h              ← GpsManager class
-│   └── lorawan.h          ← LoRaWANManager class
+│   ├── config.h           ← pin, interval, threshold, port; include unit_config.h
+│   ├── unit_config.h      ← key OTAA per unit (generated, gitignored)
+│   ├── gps.h              ← GpsManager (TinyGPSPlus, filter sats & HDOP)
+│   ├── lorawan.h          ← LoRaWANManager (join, sendGPS, sendStatus, recover)
+│   ├── display.h          ← DisplayManager (layar ST7735)
+│   └── HT_st7735*.h, icons.h
+├── scripts/
+│   ├── flash_unit.py      ← generate config + build + flash per unit
+│   └── patch_radiolib.py  ← pre-build: patch AS923 CR 4/7 → 4/5 untuk ChirpStack
 └── src/
-    └── main.cpp           ← logika utama
+    ├── main.cpp           ← logika utama (tracking, tombol, shutdown)
+    └── HT_st7735*.cpp     ← driver layar
 ```
 
 ---
@@ -95,6 +97,12 @@ Byte 12   : Satellites (uint8)
 ```javascript
 function decodeUplink(input) {
   var b = input.bytes;
+  if (input.fPort === 2) {
+    // Status: [unit_id, satellites, status_code]  0=no fix, 1=shutdown
+    var codes = ["no_fix", "shutdown"];
+    return { data: { unit_id: b[0], satellites: b[1],
+                     status: codes[b[2]] || ("unknown_" + b[2]) } };
+  }
   var lat = ((b[0] << 24) | (b[1] << 16) | (b[2] << 8) | b[3]);
   if (lat > 0x7FFFFFFF) lat -= 0x100000000;
   lat = lat / 1e6;
@@ -115,16 +123,24 @@ function decodeUplink(input) {
 ```
 Decoder backward-compatible: payload 11-byte lama tetap decode dengan benar (heading & satellites default 0).
 
-### Power Management
-- ESP32 deep sleep dinonaktifkan — device selalu aktif untuk responsivitas real-time
-- Session LoRaWAN disimpan di RTC RAM (tidak perlu re-join setiap wake up)
+### Status Uplink (3 bytes, FPort 2)
+`[unit_id, satellites, status_code]` — `0` = hidup tapi GPS tidak fix (dikirim tiap 120 s selama no-fix,
+HDOP > 5 juga dianggap no-fix), `1` = dimatikan operator. Watchdog 15 menit hanya mengukur radio.
+
+### Power Management & Tombol
+- Saat beroperasi tidak ada deep sleep — device selalu aktif untuk responsivitas real-time
+- Session LoRaWAN disimpan di RTC RAM setelah SETIAP uplink (sukses/gagal) agar FCnt tidak mundur
 - Interval: bergerak = 30 detik, diam = 120 detik (2 menit)
+- **PRG (GPIO 0):** tekan = layar ON; **tahan 7 detik = matikan unit** (countdown mulai di detik ke-2,
+  kirim status shutdown, lalu deep sleep dengan GPIO 3 & backlight di-hold LOW); tekan saat mati = hidupkan
+- **PWR (GPIO 47):** tekan = layar ON saat unit hidup. Bukan RTC GPIO → tidak bisa membangunkan unit
+- RST: restart / hidupkan unit
 
 ### Pin Heltec Wireless Tracker
 ```
 LoRa NSS:8  DIO1:14  RST:12  BUSY:13
-GPS RX:33   TX:34    PWR:3
-VEXT:36     LED:18
+GPS RX:33   TX:34    Vext(GPS+TFT):3
+LCD BL:21   LED:18   BTN PRG:0  BTN PWR:47
 ```
 
 ---
@@ -161,9 +177,10 @@ VEXT:36     LED:18
 - Pastikan antena GPS di port uFL yang benar (bukan port LoRa)
 
 ### OTAA join gagal
-- Pastikan gateway Connected (hijau) di TTN dulu
-- DevEUI harus LSB (byte dibalik dari tampilan TTN)
-- AppKey harus MSB (langsung dari TTN)
+- Pastikan gateway online di ChirpStack dulu
+- DevEUI, JoinEUI, AppKey semuanya MSB (RadioLib 6.6.0) — salin langsung dari portal
+- Error `-1116` (NO_DOWNLINK) saat join = join accept tidak diterima: cek gateway online,
+  JoinRequest muncul di LoRaWAN frames, antena LoRa terpasang, jarak ke gateway
 
 ### Fitur lanjutan yang bisa dikembangkan
 - Geofencing: alert jika hauler keluar area tambang

@@ -63,7 +63,12 @@
 // DR5 = SF7BW125, ToA ~46ms — jauh di bawah AS923 dwell time 400ms
 #define LORAWAN_DATARATE    5
 #define LORAWAN_TX_POWER    22
-#define LORAWAN_PORT        1
+#define LORAWAN_PORT        1       // Uplink posisi GPS (13 bytes)
+#define LORAWAN_STATUS_PORT 2       // Uplink status: [unit_id, satellites, status_code]
+#define STATUS_NO_FIX       0       // Hidup tapi GPS belum/tidak fix
+#define STATUS_SHUTDOWN     1       // Dimatikan operator (tahan tombol PRG)
+#define JOIN_RETRY_MIN_SEC  30      // Backoff join: 30s → 60s → 120s → ... maks 300s
+#define JOIN_RETRY_MAX_SEC  300
 
 // ============================================================
 // KONFIGURASI GPS
@@ -72,6 +77,7 @@
 #define GPS_TIMEOUT_SEC         180     // Cold start outdoor bisa 2-3 menit
 #define GPS_WARMUP_SEC          30      // Warm start setelah deep sleep (UC6580 almanac tersimpan)
 #define GPS_MIN_SATELLITES      4       // Minimal 4 sats untuk fix 3D yang valid
+#define GPS_MAX_HDOP            5.0     // HDOP di atas ini dianggap fix buruk (tidak dikirim sebagai posisi)
 
 // ============================================================
 // KONFIGURASI PENGIRIMAN — Location-change detection
@@ -85,18 +91,24 @@
 // ============================================================
 #define TX_FAIL_REJOIN          5       // Gagal TX ke-5 → coba rejoin
 #define TX_FAIL_RESTART         3       // Gagal rejoin ke-3 → restart ESP
-#define MAX_NO_TX_MS            900000UL  // 15 menit tanpa TX sukses → restart
+// 15 menit tanpa TX sukses → restart. Karena heartbeat status tetap dikirim
+// saat GPS tidak fix, watchdog ini murni mengukur kesehatan radio, bukan GPS.
+#define MAX_NO_TX_MS            900000UL
 
 // ============================================================
 // KONFIGURASI TOMBOL & DISPLAY
 // ============================================================
 #define PIN_LCD_BL          21   // Backlight LED ST7735 (HIGH=ON, LOW=OFF)
-#define PIN_BTN_DISPLAY     0    // Tombol PRG onboard (active LOW, pull-up internal)
-// NOTE: GPIO 47 pada ESP32-S3 mempengaruhi VDD_SPI voltage saat boot (HIGH=3.3V, LOW=1.8V).
-// Jika ditekan saat power-on/reset bisa menyebabkan SPI peripheral berperilaku abnormal.
-// Firmware mendeteksi kondisi ini di setup() dan meminta tombol dilepas sebelum lanjut.
+// Tombol PRG (GPIO 0): tekan = nyalakan layar; tahan SHUTDOWN_HOLD_MS = matikan unit
+// (deep sleep); tekan saat mati = hidupkan unit. GPIO 0 adalah RTC GPIO → bisa wake.
+#define PIN_BTN_DISPLAY     0    // active LOW, pull-up internal
+// Tombol PWR (GPIO 47): tekan = nyalakan layar (hanya saat unit hidup).
+// GPIO 47 BUKAN RTC GPIO → tidak bisa membangunkan dari deep sleep.
+// NOTE: GPIO 47 juga strap VDD_SPI saat boot — firmware menunggu tombol dilepas di setup().
 #define PIN_BTN_POWER       47
 #define DISPLAY_TIMEOUT_SEC 30   // Layar auto-mati setelah idle (detik)
+#define SHUTDOWN_HOLD_MS    7000 // Tahan PRG 7 detik untuk mematikan unit
+#define SHUTDOWN_WARN_MS    2000 // Countdown mulai tampil setelah ditahan 2 detik
 
 // ============================================================
 // KONFIGURASI DEBUG

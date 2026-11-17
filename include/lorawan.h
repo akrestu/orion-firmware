@@ -39,6 +39,9 @@ public:
         return true;
     }
 
+    bool isRadioReady() const { return _radioReady; }
+    bool isJoined()     const { return _joined; }
+
     // Join ke TTN — restore session dari RTC atau NVS jika tersedia.
     bool join() {
         int state;
@@ -52,6 +55,7 @@ public:
             if (state == RADIOLIB_LORAWAN_SESSION_RESTORED) {
                 if (DEBUG_ENABLED) DEBUG_SERIAL.println("OK");
                 _node.setDatarate(LORAWAN_DATARATE);
+                _joined = true;
                 return true;
             }
             if (DEBUG_ENABLED) DEBUG_SERIAL.printf("failed (code %d)\n", state);
@@ -95,6 +99,7 @@ public:
         // Simpan session penuh ke RTC RAM setelah join sukses
         memcpy(lwSession, _node.getBufferSession(), RADIOLIB_LORAWAN_SESSION_BUF_SIZE);
         lwNoncesValid = true;
+        _joined = true;
 
         return true;
     }
@@ -127,17 +132,32 @@ public:
         payload[12] = gps.satellites;
 
         if (DEBUG_ENABLED)
-            DEBUG_SERIAL.printf("[LoRa] Sending payload (%d bytes) unit=%d hdg=%.0f° sats=%d... ",
-                                sizeof(payload), UNIT_ID, gps.course_deg, gps.satellites);
+            DEBUG_SERIAL.printf("[LoRa] Sending GPS (%u bytes) unit=%d hdg=%.0f sats=%u... ",
+                                (unsigned)sizeof(payload), UNIT_ID, gps.course_deg,
+                                (unsigned)gps.satellites);
+        return _transmit(payload, sizeof(payload), LORAWAN_PORT, true);
+    }
 
-        int state = _node.sendReceive(payload, sizeof(payload), LORAWAN_PORT);
+    // Uplink status 3 bytes di FPort 2: [unit_id, satellites, status_code]
+    // Dipakai sebagai heartbeat saat GPS tidak fix, dan notifikasi shutdown.
+    bool sendStatus(uint8_t satellites, uint8_t statusCode, bool allowRetry = true) {
+        uint8_t payload[3] = { (uint8_t)UNIT_ID, satellites, statusCode };
+        if (DEBUG_ENABLED)
+            DEBUG_SERIAL.printf("[LoRa] Sending status=%u sats=%u... ",
+                                (unsigned)statusCode, (unsigned)satellites);
+        return _transmit(payload, sizeof(payload), LORAWAN_STATUS_PORT, allowRetry);
+    }
+
+private:
+    bool _transmit(uint8_t* payload, size_t len, uint8_t port, bool allowRetry) {
+        int state = _sendOnce(payload, len, port);
         bool sendOk = (state == RADIOLIB_ERR_NONE || state == RADIOLIB_LORAWAN_NO_DOWNLINK);
 
-        if (!sendOk) {
+        if (!sendOk && allowRetry) {
             if (DEBUG_ENABLED) DEBUG_SERIAL.printf("retry (err %d)... ", state);
             // Tunggu 5s agar RX1+RX2 window dari attempt pertama selesai sebelum retry
             delay(5000);
-            state = _node.sendReceive(payload, sizeof(payload), LORAWAN_PORT);
+            state = _sendOnce(payload, len, port);
             sendOk = (state == RADIOLIB_ERR_NONE || state == RADIOLIB_LORAWAN_NO_DOWNLINK);
         }
 
@@ -159,13 +179,6 @@ public:
 
             // Re-lock DR setelah TX sukses — ADR downlink mungkin sudah diproses sebelum diblokir
             _node.setDatarate(LORAWAN_DATARATE);
-
-            // Fix #4: hanya update RTC RAM (survive deep sleep).
-            // NVS tidak perlu ditulis setiap uplink — DevNonce hanya berubah saat join,
-            // dan RTC sudah cukup untuk menghindari re-join di antara deep sleep cycles.
-            // Menulis NVS setiap 30s menyebabkan flash wear ribuan kali per hari.
-            memcpy(lwNonces,  _node.getBufferNonces(),  RADIOLIB_LORAWAN_NONCES_BUF_SIZE);
-            memcpy(lwSession, _node.getBufferSession(), RADIOLIB_LORAWAN_SESSION_BUF_SIZE);
             return true;
         } else {
             _consecutiveFails++;
@@ -183,6 +196,19 @@ public:
         }
     }
 
+    // Satu kali sendReceive + simpan session ke RTC RAM SETELAH SETIAP attempt
+    // (sukses maupun gagal). RadioLib menaikkan FCntUp walau TX gagal — kalau hanya
+    // disimpan saat sukses, session yang di-restore setelah ESP.restart() memakai
+    // FCnt lama dan network server membuang uplink sebagai replay.
+    // Hanya RTC RAM (bukan NVS) agar tidak ada flash wear per uplink.
+    int _sendOnce(uint8_t* payload, size_t len, uint8_t port) {
+        int state = _node.sendReceive(payload, len, port);
+        memcpy(lwNonces,  _node.getBufferNonces(),  RADIOLIB_LORAWAN_NONCES_BUF_SIZE);
+        memcpy(lwSession, _node.getBufferSession(), RADIOLIB_LORAWAN_SESSION_BUF_SIZE);
+        return state;
+    }
+
+public:
     // Recovery: reset hardware radio, lalu rejoin TTN.
     // Jika semua attempt gagal → ESP.restart().
     void recover() {
@@ -230,9 +256,12 @@ private:
     float        _lastSNR         = 0.0f;
     bool         _hasSignal       = false;
     int          _consecutiveFails = 0;
+    bool         _radioReady       = false;  // SX1262 sukses di-init (aman dipanggil sleep())
+    bool         _joined           = false;  // Punya session LoRaWAN aktif
 
     // Hanya inisialisasi hardware SX1262 — dipanggil di begin() dan recover().
     bool _initRadio() {
+        _radioReady = false;
         // Hard-reset SX1262 untuk clear stuck BUSY state akibat power glitch
         pinMode(PIN_LORA_RST, OUTPUT);
         digitalWrite(PIN_LORA_RST, LOW);
@@ -258,6 +287,7 @@ private:
             return false;
         }
         if (DEBUG_ENABLED) DEBUG_SERIAL.println("OK");
+        _radioReady = true;
         return true;
     }
 

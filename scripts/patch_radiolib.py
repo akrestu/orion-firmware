@@ -31,6 +31,11 @@ def patch():
         content = f.read()
 
     if OLD not in content:
+        if NEW not in content:
+            # Struktur file berubah (versi RadioLib lain?) — jangan build diam-diam tanpa patch
+            print("[patch_radiolib] ERROR: pola CR tidak ditemukan di LoRaWANBands.cpp. "
+                  "Versi RadioLib berubah? Pin di platformio.ini harus RadioLib @ 6.6.0.")
+            env.Exit(1)  # noqa: F821
         print("[patch_radiolib] Already patched — skipping.")
         return
 
@@ -42,4 +47,20 @@ def patch():
     print(f"[patch_radiolib] Patched {count} occurrence(s): CR_4_7 → CR_4_5 in LoRaWANBands.cpp")
 
 
+def ensure_libs_installed():
+    """Pre-script jalan sebelum PlatformIO menginstall lib_deps pada clone/clean baru.
+    Install dulu secara eksplisit agar build pertama TIDAK lolos tanpa patch
+    (yang akan membuat ChirpStack menolak semua uplink dengan CR 4/7)."""
+    if os.path.isfile(BANDS_FILE):
+        return
+    print("[patch_radiolib] RadioLib belum terinstall — menjalankan 'pio pkg install'...")
+    env.Execute(  # noqa: F821
+        '"$PYTHONEXE" -m platformio pkg install -e "$PIOENV" -d "$PROJECT_DIR"'
+    )
+    if not os.path.isfile(BANDS_FILE):
+        print(f"[patch_radiolib] ERROR: file tetap tidak ditemukan setelah install: {BANDS_FILE}")
+        env.Exit(1)  # noqa: F821
+
+
+ensure_libs_installed()
 patch()
