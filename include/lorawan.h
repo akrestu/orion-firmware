@@ -88,6 +88,12 @@ public:
         prefs.putBool(NVS_VALID, true);
         prefs.end();
 
+        if (state == RADIOLIB_ERR_JOIN_NONCE_INVALID) {
+            _handleJoinNonceInvalid();
+        } else {
+            _joinNonceRejects = 0;
+        }
+
         if (state != RADIOLIB_LORAWAN_NEW_SESSION) {
             if (DEBUG_ENABLED) DEBUG_SERIAL.printf("FAILED! Code: %d\n", state);
             return false;
@@ -256,6 +262,7 @@ private:
     float        _lastSNR         = 0.0f;
     bool         _hasSignal       = false;
     int          _consecutiveFails = 0;
+    uint8_t      _joinNonceRejects = 0;      // -1111 berturut-turut (lihat _handleJoinNonceInvalid)
     bool         _radioReady       = false;  // SX1262 sukses di-init (aman dipanggil sleep())
     bool         _joined           = false;  // Punya session LoRaWAN aktif
 
@@ -289,6 +296,33 @@ private:
         if (DEBUG_ENABLED) DEBUG_SERIAL.println("OK");
         _radioReady = true;
         return true;
+    }
+
+    // -1111 (JOIN_NONCE_INVALID): unit menyimpan JoinNonce dari network server lama
+    // (mis. TTN) yang lebih tinggi dari counter server baru, sehingga semua JoinAccept
+    // ditolak selamanya. Setelah JOIN_NONCE_RESET_AFTER penolakan berturut-turut,
+    // reset JoinNonce ke 0 (RadioLib lalu menerima JoinAccept berikutnya) tapi
+    // PERTAHANKAN DevNonce — ChirpStack menolak DevNonce yang pernah dipakai.
+    // Ambang >1 agar satu JoinAccept lama yang di-replay tidak langsung memicu reset.
+    void _handleJoinNonceInvalid() {
+        if (++_joinNonceRejects < JOIN_NONCE_RESET_AFTER) return;
+        _joinNonceRejects = 0;
+
+        memset(&lwNonces[RADIOLIB_LORAWAN_NONCES_JOIN_NONCE], 0, 3);
+        // Signature = XOR 16-bit big-endian atas buffer kecuali 2 byte terakhir
+        // (LoRaWANNode::checkSum16 di RadioLib 6.6.0, private)
+        const size_t n = RADIOLIB_LORAWAN_NONCES_SIGNATURE;
+        uint16_t sum = 0;
+        for (size_t i = 0; i + 1 < n; i += 2) sum ^= ((uint16_t)lwNonces[i] << 8) | lwNonces[i + 1];
+        if (n % 2) sum ^= (uint16_t)lwNonces[n - 1] << 8;
+        lwNonces[n]     = sum >> 8;
+        lwNonces[n + 1] = sum & 0xFF;
+
+        Preferences prefs;
+        prefs.begin(NVS_NS, false);
+        prefs.putBytes(NVS_NONCES, lwNonces, RADIOLIB_LORAWAN_NONCES_BUF_SIZE);
+        prefs.end();
+        if (DEBUG_ENABLED) DEBUG_SERIAL.println("[LoRa] JoinNonce stale (network lama) — direset ke 0");
     }
 
     // Set OTAA keys + LoRaWAN policy — dipanggil setelah _initRadio().

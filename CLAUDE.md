@@ -44,9 +44,13 @@ Heltec Wireless Tracker
 - **SenseCAP M2**, EUI `2CF7F11375000072`
 - LuCI: **LoRa → LoRaWAN Network Settings** → Packet Forwarder, port 1700, Server Address = server ChirpStack
 - Produksi 40-60 unit WAJIB ChirpStack (TTN fair use = 30 uplink/hari)
-- **Belum diputuskan:** frequency plan AS923-1 (923-925 MHz, dipakai firmware) vs AS923-2
-  (920-923 MHz, plan Indonesia di LoRaWAN Regional Parameters), dan TX power 22 dBm vs
-  batas EIRP. Firmware, ChirpStack, dan gateway harus diubah bersamaan.
+- **Region WAJIB sama di 3 tempat — AS923-1 (923-925 MHz):**
+  1. Firmware: `&AS923` di `include/lorawan.h` (RadioLib AS923 = AS923-1)
+  2. Gateway LuCI → Channel Plan: Region AS923, "Asia 923-925 MHz"
+  3. ChirpStack: region `as923` aktif, gateway + device profile `ORION-Beacon-AS923` = AS923
+  Kalau salah satu beda: JoinRequest diabaikan diam-diam / JoinAccept tidak sampai.
+  (Opsi pindah ke AS923-2 = plan Indonesia di Regional Parameters masih terbuka — ubah
+  ketiganya bersamaan. TX power 22 dBm vs batas EIRP juga belum diputuskan.)
 
 ### End Device (ChirpStack)
 - Unit terdaftar di `units.csv` (tidak di-commit). Flash per unit: `python scripts/flash_unit.py <unit_id>`
@@ -184,7 +188,10 @@ LCD BL:21   LED:18   BTN PRG:0  BTN PWR:47
 - JoinAccept muncul di ChirpStack tapi unit terus join ulang: region device profile/gateway
   harus AS923 (AS923-1), bukan AS923-2
 - Error `-1111` (JOIN_NONCE_INVALID) = unit menyimpan JoinNonce dari network lama (TTN) yang
-  lebih tinggi. Hapus NVS: `esptool.py --port COMx erase_region 0x9000 0x5000`, lalu reset
+  lebih tinggi. Firmware sejak commit ini me-reset JoinNonce otomatis setelah 2x `-1111`
+  berturut-turut (DevNonce dipertahankan). Manual: `esptool.py --port COMx erase_region
+  0x9000 0x5000` — tapi ini juga me-reset DevNonce, jadi klik "Flush OTAA device nonces"
+  di ChirpStack kalau setelahnya join ditolak
 - Gateway SenseCAP M2 setelah reboot butuh ±9 menit sampai log `concentrator started`
 
 ### Fitur lanjutan yang bisa dikembangkan

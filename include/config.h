@@ -64,6 +64,7 @@
 #define LORAWAN_DATARATE    5
 #define LORAWAN_TX_POWER    22
 #define LORAWAN_PORT        1       // Uplink posisi GPS (13 bytes)
+#define JOIN_NONCE_RESET_AFTER 2    // Reset JoinNonce stale setelah N kali -1111 berturut-turut
 #define LORAWAN_STATUS_PORT 2       // Uplink status: [unit_id, satellites, status_code]
 #define STATUS_NO_FIX       0       // Hidup tapi GPS belum/tidak fix
 #define STATUS_SHUTDOWN     1       // Dimatikan operator (tahan tombol PRG)
