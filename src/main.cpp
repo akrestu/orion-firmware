@@ -358,8 +358,12 @@ void loop() {
         uint32_t waitedSec = (now - noFixStart) / 1000;
         GpsData partial = gpsManager.getCurrent();
 
-        // Heartbeat no-fix: server tahu unit hidup walau GPS hilang (pit/tebing)
-        if (lastStatusTime == 0 || (now - lastStatusTime) >= INTERVAL_IDLE_SEC * 1000UL) {
+        // Heartbeat no-fix: server tahu unit hidup walau GPS hilang (pit/tebing).
+        // Tunggu NO_FIX_GRACE_SEC dulu: setelah TX (~2-3 s blocking) data GPS basi sesaat
+        // (age > 2 s) — tanpa grace ini setiap uplink GPS diikuti status no_fix palsu.
+        bool lostLongEnough = waitedSec >= NO_FIX_GRACE_SEC;
+        if (lostLongEnough &&
+            (lastStatusTime == 0 || (now - lastStatusTime) >= INTERVAL_IDLE_SEC * 1000UL)) {
             lastStatusTime = now;
             txStatus = TX_SENDING;
             digitalWrite(PIN_LED, HIGH);
@@ -395,7 +399,11 @@ void loop() {
     bool idleHeartbeat      = elapsed   >= INTERVAL_IDLE_SEC   * 1000UL;
     bool firstSend          = lastSendTime == 0;
 
-    bool shouldSend = firstSend || movedSignificantly || movingKeepalive || idleHeartbeat;
+    // Jeda minimum antar-uplink: tanpa ini hauler 40 km/h kirim tiap ~2.5 s (trigger 20 m)
+    // → simulasi 50 unit: ~19-58% paket tabrakan. Dengan 10 s: ~5% (8 channel).
+    bool minGapOk   = elapsed >= MIN_SEND_INTERVAL_SEC * 1000UL;
+    bool shouldSend = firstSend ||
+                      (minGapOk && (movedSignificantly || movingKeepalive || idleHeartbeat));
 
     uint32_t interval    = movingUI ? INTERVAL_MOVING_SEC * 1000UL : INTERVAL_IDLE_SEC * 1000UL;
     uint32_t nextSendSec = (elapsed < interval) ? (interval - elapsed) / 1000 : 0;

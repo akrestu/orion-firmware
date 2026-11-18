@@ -78,13 +78,15 @@
 #define GPS_TIMEOUT_SEC         180     // Cold start outdoor bisa 2-3 menit
 #define GPS_WARMUP_SEC          30      // Warm start setelah deep sleep (UC6580 almanac tersimpan)
 #define GPS_MIN_SATELLITES      4       // Minimal 4 sats untuk fix 3D yang valid
-#define GPS_MAX_HDOP            5.0     // HDOP di atas ini dianggap fix buruk (tidak dikirim sebagai posisi)
+#define NO_FIX_GRACE_SEC        15      // Fix harus hilang terus-menerus selama ini sebelum status no_fix dikirim
+#define GPS_MAX_HDOP            5.0    // HDOP di atas ini dianggap fix buruk (tidak dikirim sebagai posisi)
 
 // ============================================================
 // KONFIGURASI PENGIRIMAN — Location-change detection
 // ============================================================
 #define MOVE_THRESHOLD_METERS   20.0    // Kirim jika berpindah > 20 meter dari posisi terakhir
-#define INTERVAL_MOVING_SEC     30      // Keepalive saat bergerak (meski < threshold)
+#define MIN_SEND_INTERVAL_SEC   10      // Jeda minimum antar-uplink GPS (anti-tabrakan untuk 40-60 unit)
+#define INTERVAL_MOVING_SEC     30     // Keepalive saat bergerak (meski < threshold)
 #define INTERVAL_IDLE_SEC       120     // Heartbeat saat diam (2 menit — lebih aman untuk deteksi breakdown)
 
 // ============================================================

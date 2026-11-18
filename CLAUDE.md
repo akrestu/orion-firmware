@@ -99,30 +99,30 @@ Byte 12   : Satellites (uint8)
 
 ### ChirpStack Payload Decoder (pasang di Console → Application → Codec → Custom JavaScript)
 ```javascript
+// Pasang di Device profile ORION-Beacon-AS923 → Payload codec (ChirpStack v4)
 function decodeUplink(input) {
   var b = input.bytes;
   if (input.fPort === 2) {
-    // Status: [unit_id, satellites, status_code]  0=no fix, 1=shutdown
+    if (b.length < 3) return { errors: ["status payload terlalu pendek: " + b.length + " byte"] };
     var codes = ["no_fix", "shutdown"];
-    return { data: { unit_id: b[0], satellites: b[1],
+    return { data: { type: "status", unit_id: b[0], satellites: b[1],
                      status: codes[b[2]] || ("unknown_" + b[2]) } };
   }
-  var lat = ((b[0] << 24) | (b[1] << 16) | (b[2] << 8) | b[3]);
-  if (lat > 0x7FFFFFFF) lat -= 0x100000000;
-  lat = lat / 1e6;
-  var lon = ((b[4] << 24) | (b[5] << 16) | (b[6] << 8) | b[7]);
-  if (lon > 0x7FFFFFFF) lon -= 0x100000000;
-  lon = lon / 1e6;
-  return {
-    data: {
-      latitude: lat, longitude: lon,
-      speed_kmh: b[8], hdop: b[9] / 10.0,
-      unit_id: b[10],
-      heading_deg: b.length > 11 ? b[11] * 2 : 0,
-      satellites:  b.length > 12 ? b[12] : 0,
-      location: { latitude: lat, longitude: lon }
-    }
-  };
+  if (input.fPort === 1) {
+    if (b.length < 11) return { errors: ["GPS payload terlalu pendek: " + b.length + " byte"] };
+    var lat = ((b[0] << 24) | (b[1] << 16) | (b[2] << 8) | b[3]) / 1e6;  // int32 signed
+    var lon = ((b[4] << 24) | (b[5] << 16) | (b[6] << 8) | b[7]) / 1e6;
+    return {
+      data: {
+        type: "gps", latitude: lat, longitude: lon,
+        speed_kmh: b[8], hdop: b[9] / 10.0, unit_id: b[10],
+        heading_deg: b.length > 11 ? b[11] * 2 : 0,
+        satellites:  b.length > 12 ? b[12] : 0,
+        location: { latitude: lat, longitude: lon }
+      }
+    };
+  }
+  return { errors: ["fPort tidak dikenal: " + input.fPort] };
 }
 ```
 Decoder backward-compatible: payload 11-byte lama tetap decode dengan benar (heading & satellites default 0).
@@ -134,7 +134,10 @@ HDOP > 5 juga dianggap no-fix), `1` = dimatikan operator. Watchdog 15 menit hany
 ### Power Management & Tombol
 - Saat beroperasi tidak ada deep sleep — device selalu aktif untuk responsivitas real-time
 - Session LoRaWAN disimpan di RTC RAM setelah SETIAP uplink (sukses/gagal) agar FCnt tidak mundur
-- Interval: bergerak = 30 detik, diam = 120 detik (2 menit)
+- Interval: pindah ≥ 20 m = kirim (min jeda 10 detik), bergerak pelan = 30 detik, diam = 120 detik
+- Status no_fix baru dikirim kalau fix hilang terus-menerus ≥ 15 detik (`NO_FIX_GRACE_SEC`)
+- Kapasitas (simulasi 50 unit, jeda 10 s): ~5% paket tabrakan dengan 8 channel, ~18% dengan 2 channel
+  → ChirpStack `region_as923.toml` WAJIB punya `extra_channels` 923.6–924.6 MHz (CFList saat join)
 - **PRG (GPIO 0):** tekan = layar ON; **tahan 7 detik = matikan unit** (countdown mulai di detik ke-2,
   kirim status shutdown, lalu deep sleep dengan GPIO 3 & backlight di-hold LOW); tekan saat mati = hidupkan
 - **PWR (GPIO 47):** tekan = layar ON saat unit hidup. Bukan RTC GPIO → tidak bisa membangunkan unit
